@@ -1,9 +1,6 @@
-﻿using Marketplace.Admin.Application.Dtos;
-using MediatR;
-
-namespace Marketplace.Admin.Application.AccountManagement
+﻿namespace Marketplace.Admin.Application.AccountManagement.Admin.GetAdminAccounts
 {
-    public class GetAdminAccountsQuery : IRequest<ResponseBaseDto>
+    public class GetAdminAccountsQuery
     {
         public string Search { get; set; }
         public string Status { get; set; }

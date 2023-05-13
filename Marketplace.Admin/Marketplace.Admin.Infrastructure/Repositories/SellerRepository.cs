@@ -5,26 +5,26 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Marketplace.Admin.Infrastructure.Repositories
 {
-    public class AdminRepository : RepositoryBase<AdminUser>, IAdminRepository
+    public class SellerRepository : RepositoryBase<Seller>, ISellerRepository
     {
-        public AdminRepository(DatabaseContext dbContext) : base(dbContext)
+        public SellerRepository(DatabaseContext dbContext) : base(dbContext)
         {
         }
 
-        public async Task<AdminUser> FindByUsername(string username)
+        public async Task<Seller> FindByUsername(string username)
         {
-            var adminUser = await _dbContext.AdminUsers
+            var user = await _dbContext.Sellers
                 .FirstOrDefaultAsync(x => x.Username == username);
-            return adminUser;
+            return user;
         }
 
-        public async Task<IEnumerable<AdminUser>> GetUsersBySearchAndStatus(string search, string status)
+        public async Task<IEnumerable<Seller>> GetUsersBySearchAndStatus(string search, string status)
         {
-            var adminUsers = await _dbContext.AdminUsers
+            var users = await _dbContext.Sellers
                 .Where(x => (string.IsNullOrEmpty(search) || (x.Username.Contains(search) || x.Name.Contains(search)))
                     && (string.IsNullOrEmpty(status) || x.Status == status))
                 .ToListAsync();
-            return adminUsers;
+            return users;
         }
     }
 }

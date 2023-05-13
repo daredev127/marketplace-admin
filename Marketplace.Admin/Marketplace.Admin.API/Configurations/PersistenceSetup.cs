@@ -17,6 +17,9 @@ namespace Marketplace.Admin.API.Configurations
 
             services.AddScoped(typeof(IAsyncRepository<>), typeof(RepositoryBase<>));
             services.AddScoped<IAdminRepository, AdminRepository>();
+            services.AddScoped<IBuyerRepository, BuyerRepository>();
+            services.AddScoped<ISellerRepository, SellerRepository>();
+            services.AddScoped<ILogisticsStaffRepository, LogisticsStaffRepository>();
 
             return services;
         }

@@ -1,6 +1,8 @@
-﻿using Marketplace.Admin.Application.AccountManagement;
+﻿using Marketplace.Admin.Application.AccountManagement.Admin.BlockAdminAccount;
+using Marketplace.Admin.Application.AccountManagement.Admin.CreateAdminAccount;
+using Marketplace.Admin.Application.AccountManagement.Admin.GetAdminAccounts;
+using Marketplace.Admin.Application.AccountManagement.Admin.UnblockAdminAccount;
 using Marketplace.Admin.Application.Dtos;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -10,29 +12,54 @@ namespace Marketplace.Admin.API.Controllers
     [Route("api/[controller]")]
     public class AdminController : ControllerBase
     {
-        private readonly IMediator _mediator;
+        private readonly IGetAdminAccountsQueryHandler _getAdminAccountsQueryHandler;
+        private readonly ICreateAdminAccountCommandHandler _createAdminAccountCommandHandler;
+        private readonly IBlockAdminAccountCommandHandler _blockAdminAccountHandler;
+        private readonly IUnblockAdminAccountCommandHandler _unblockAdminAccountHandler;
 
-        public AdminController(IMediator mediator)
+        public AdminController(
+            IGetAdminAccountsQueryHandler getAdminAccountsQueryHandler,
+            ICreateAdminAccountCommandHandler createAdminAccountCommandHandler,
+            IBlockAdminAccountCommandHandler blockAdminAccountHandler,
+            IUnblockAdminAccountCommandHandler unblockAdminAccountHandler)
         {
-            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+            _getAdminAccountsQueryHandler = getAdminAccountsQueryHandler;
+            _createAdminAccountCommandHandler = createAdminAccountCommandHandler;
+            _blockAdminAccountHandler = blockAdminAccountHandler;
+            _unblockAdminAccountHandler = unblockAdminAccountHandler;
         }
 
         [HttpGet]
         [ProducesResponseType(typeof(ResponseBaseDto), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<ResponseBaseDto>> GetAdmins([FromQuery] string search, string status)
+        public async Task<ActionResult<ResponseBaseDto>> GetAdminAccounts([FromQuery] string search, string status)
         {
             var query = new GetAdminAccountsQuery(search, status);
-            var orders = await _mediator.Send(query);
-            return Ok(orders);
+            var adminUsers = await _getAdminAccountsQueryHandler.Handle(query);
+            return Ok(adminUsers);
         }
 
-        //[HttpPost]
-        //[ProducesResponseType(typeof(IEnumerable<OrdersVm>), (int)HttpStatusCode.OK)]
-        //public async Task<ActionResult<IEnumerable<OrdersVm>>> AddAdmin(string userName)
-        //{
-        //    var query = new GetOrdersListQuery(userName);
-        //    var orders = await _mediator.Send(query);
-        //    return Ok(orders);
-        //}
+        [HttpPost]
+        [ProducesResponseType(typeof(ResponseBaseDto), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<ResponseBaseDto>> CreateAdminAccount([FromBody] CreateAdminAccountCommand request)
+        {
+            var result = await _createAdminAccountCommandHandler.Handle(request);
+            return Ok(result);
+        }
+
+        [HttpPut("block")]
+        [ProducesResponseType(typeof(ResponseBaseDto), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<ResponseBaseDto>> BlockAdminAccount([FromBody] BlockAdminAccountCommand request)
+        {
+            var result = await _blockAdminAccountHandler.Handle(request);
+            return Ok(result);
+        }
+
+        [HttpPut("unblock")]
+        [ProducesResponseType(typeof(ResponseBaseDto), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<ResponseBaseDto>> UnblockAdminAccount([FromBody] UnblockAdminAccountCommand request)
+        {
+            var result = await _unblockAdminAccountHandler.Handle(request);
+            return Ok(result);
+        }
     }
 }

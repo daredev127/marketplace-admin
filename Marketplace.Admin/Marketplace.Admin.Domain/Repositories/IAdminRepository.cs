@@ -2,8 +2,9 @@
 
 namespace Marketplace.Admin.Domain.Repositories
 {
-    public interface IAdminRepository
+    public interface IAdminRepository : IAsyncRepository<AdminUser>
     {
-        Task<IEnumerable<AdminUser>> GetAdminUsersBySearchAndStatus(string search, string status);
+        Task<IEnumerable<AdminUser>> GetUsersBySearchAndStatus(string search, string status);
+        Task<AdminUser> FindByUsername(string username);
     }
 }
