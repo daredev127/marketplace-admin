@@ -1,4 +1,6 @@
-﻿using Marketplace.Admin.Infrastructure.Persistence.Database;
+﻿using Marketplace.Admin.Domain.Repositories;
+using Marketplace.Admin.Infrastructure.Persistence.Database;
+using Marketplace.Admin.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace Marketplace.Admin.API.Configurations
@@ -12,6 +14,9 @@ namespace Marketplace.Admin.API.Configurations
             {
                 o.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             });
+
+            services.AddScoped(typeof(IAsyncRepository<>), typeof(RepositoryBase<>));
+            services.AddScoped<IAdminRepository, AdminRepository>();
 
             return services;
         }

@@ -1,7 +1,9 @@
-﻿namespace Marketplace.Admin.Domain.Repositories
+﻿using Marketplace.Admin.Domain.Entities;
+
+namespace Marketplace.Admin.Domain.Repositories
 {
     public interface IAdminRepository
     {
-        Task<bool> Authenticate(string username, string password);
+        Task<IEnumerable<AdminUser>> GetAdminUsersBySearchAndStatus(string search, string status);
     }
 }

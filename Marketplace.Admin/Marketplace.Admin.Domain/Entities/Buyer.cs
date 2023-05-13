@@ -1,9 +1,6 @@
 ﻿namespace Marketplace.Admin.Domain.Entities
 {
-    public class Buyer
+    public class Buyer : UserBase
     {
-        public int Id { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
     }
 }

@@ -9,12 +9,5 @@ namespace Marketplace.Admin.Application.AccountManagement
         {
             _adminRepository = adminRepository;
         }
-
-        //A function that accepts username and password and verifies if it is in the database
-        public async Task<bool> VerifyAdminAccount(string username, string password)
-        {
-            var authenticated = await _adminRepository.Authenticate(username, password);
-            return authenticated;
-        }
     }
 }
