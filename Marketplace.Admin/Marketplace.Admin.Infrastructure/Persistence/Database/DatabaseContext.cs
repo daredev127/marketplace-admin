@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Marketplace.Admin.Application.Common;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace Marketplace.Admin.Infrastructure.Persistence.Database
 {
-    public class DatabaseContext : DbContext
+    public class DatabaseContext : DbContext, IContext
     {
         public DatabaseContext(DbContextOptions options) : base(options)
         {

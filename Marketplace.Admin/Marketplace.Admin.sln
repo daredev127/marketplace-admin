@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Marketplace.Admin.Domain", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{6FBFD9CA-CFD9-47D6-B24A-F7095B21C70E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marketplace.Admin.Application", "Marketplace.Admin.Application\Marketplace.Admin.Application.csproj", "{EA0D21A5-50F7-4847-A4CB-B0CC3DA2CEB9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Marketplace.Admin.Application", "Marketplace.Admin.Application\Marketplace.Admin.Application.csproj", "{EA0D21A5-50F7-4847-A4CB-B0CC3DA2CEB9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Marketplace.Admin.Infrastructure", "Marketplace.Admin.Infrastructure\Marketplace.Admin.Infrastructure.csproj", "{759804A6-9449-4807-A7A9-331A231D4B48}"
 EndProject
