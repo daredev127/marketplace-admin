@@ -18,6 +18,9 @@ using Marketplace.Admin.Application.AccountManagement.Seller.CreateSellerAccount
 using Marketplace.Admin.Application.AccountManagement.Seller.GetSellerAccounts;
 using Marketplace.Admin.Application.AccountManagement.Seller.UnblockSellerAccount;
 using Marketplace.Admin.Application.Auth;
+using Marketplace.Admin.Application.Auth.Admin;
+using Marketplace.Admin.Application.Auth.Buyer;
+using Marketplace.Admin.Application.Auth.LogisticsStaff;
 using Marketplace.Admin.Application.Auth.Seller;
 using Marketplace.Admin.Application.Behaviors;
 using Marketplace.Admin.Application.Common;
@@ -66,7 +69,10 @@ namespace Marketplace.Admin.API.Configurations
             services.AddScoped<IBlockLogisticsStaffAccountCommandHandler, BlockLogisticsStaffAccountCommandHandler>();
             services.AddScoped<IUnblockLogisticsStaffAccountCommandHandler, UnblockLogisticsStaffAccountCommandHandler>();
 
+            services.AddScoped<IAdminLoginCommandHandler, AdminLoginCommandHandler>();
+            services.AddScoped<IBuyerLoginCommandHandler, BuyerLoginCommandHandler>();
             services.AddScoped<ISellerLoginCommandHandler, SellerLoginCommandHandler>();
+            services.AddScoped<ILogisticsStaffLoginCommandHandler, LogisticsStaffLoginCommandHandler>();
 
             return services;
         }
