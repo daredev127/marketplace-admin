@@ -10,7 +10,7 @@ namespace Marketplace.Admin.Infrastructure.Persistence.EntityConfiguration
         {
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Username).HasMaxLength(50).IsRequired();
-            builder.Property(x => x.Password).HasMaxLength(50).IsRequired();
+            builder.Property(x => x.Password).HasMaxLength(100).IsRequired();
         }
     }
 }

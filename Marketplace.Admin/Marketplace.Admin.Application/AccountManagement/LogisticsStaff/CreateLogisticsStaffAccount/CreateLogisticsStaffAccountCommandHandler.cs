@@ -1,4 +1,5 @@
 ﻿using Mapster;
+using Marketplace.Admin.Application.Auth;
 using Marketplace.Admin.Application.Dtos;
 using Marketplace.Admin.Domain.Constants;
 using Marketplace.Admin.Domain.Repositories;
@@ -8,9 +9,11 @@ namespace Marketplace.Admin.Application.AccountManagement.LogisticsStaff.CreateL
     public class CreateLogisticsStaffAccountCommandHandler : ICreateLogisticsStaffAccountCommandHandler
     {
         private readonly ILogisticsStaffRepository _logisticsStaffRepository;
-        public CreateLogisticsStaffAccountCommandHandler(ILogisticsStaffRepository logisticsStaffRepository)
+        private readonly IPasswordUtils _passwordUtil;
+        public CreateLogisticsStaffAccountCommandHandler(ILogisticsStaffRepository logisticsStaffRepository, IPasswordUtils passwordUtil)
         {
             _logisticsStaffRepository = logisticsStaffRepository;
+            _passwordUtil = passwordUtil;
         }
 
         public async Task<ResponseBaseDto> Handle(CreateLogisticsStaffAccountCommand request)
@@ -21,6 +24,7 @@ namespace Marketplace.Admin.Application.AccountManagement.LogisticsStaff.CreateL
             }
 
             var newLogisticsStaff = request.Adapt<Domain.Entities.LogisticsStaff>();
+            newLogisticsStaff.Password = _passwordUtil.GenerateHash(request.Password);
             newLogisticsStaff.Status = Status.Active;
             newLogisticsStaff.CreatedDate = DateTime.Now;
             newLogisticsStaff.CreatedBy = "LogisticsStaff";

@@ -1,9 +1,11 @@
 using Marketplace.Admin.API.Common;
 using Marketplace.Admin.API.Configurations;
+using Marketplace.Admin.Application.Common;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.Configure<AppSettings>(builder.Configuration);
 
 builder.Services.AddControllers();
 

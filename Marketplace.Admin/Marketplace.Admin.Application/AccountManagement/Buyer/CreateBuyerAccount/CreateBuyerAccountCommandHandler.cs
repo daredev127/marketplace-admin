@@ -1,4 +1,5 @@
 ﻿using Mapster;
+using Marketplace.Admin.Application.Auth;
 using Marketplace.Admin.Application.Dtos;
 using Marketplace.Admin.Domain.Constants;
 using Marketplace.Admin.Domain.Repositories;
@@ -8,10 +9,12 @@ namespace Marketplace.Admin.Application.AccountManagement.Buyer.CreateBuyerAccou
     public class CreateBuyerAccountCommandHandler : ICreateBuyerAccountCommandHandler
     {
         private readonly IBuyerRepository _buyerRepository;
+        private readonly IPasswordUtils _passwordUtil;
 
-        public CreateBuyerAccountCommandHandler(IBuyerRepository buyerRepository)
+        public CreateBuyerAccountCommandHandler(IBuyerRepository buyerRepository, IPasswordUtils passwordUtil)
         {
             _buyerRepository = buyerRepository;
+            _passwordUtil = passwordUtil;
         }
 
         public async Task<ResponseBaseDto> Handle(CreateBuyerAccountCommand request)
@@ -22,6 +25,7 @@ namespace Marketplace.Admin.Application.AccountManagement.Buyer.CreateBuyerAccou
             }
 
             var newBuyer = request.Adapt<Domain.Entities.Buyer>();
+            newBuyer.Password = _passwordUtil.GenerateHash(request.Password);
             newBuyer.Status = Status.Active;
             newBuyer.CreatedDate = DateTime.Now;
             newBuyer.CreatedBy = "Buyer";

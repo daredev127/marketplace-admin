@@ -17,6 +17,8 @@ using Marketplace.Admin.Application.AccountManagement.Seller.BlockSellerAccount;
 using Marketplace.Admin.Application.AccountManagement.Seller.CreateSellerAccount;
 using Marketplace.Admin.Application.AccountManagement.Seller.GetSellerAccounts;
 using Marketplace.Admin.Application.AccountManagement.Seller.UnblockSellerAccount;
+using Marketplace.Admin.Application.Auth;
+using Marketplace.Admin.Application.Auth.Seller;
 using Marketplace.Admin.Application.Behaviors;
 using Marketplace.Admin.Application.Common;
 using Marketplace.Admin.Application.MappingConfig;
@@ -28,6 +30,7 @@ using System.Reflection;
 
 namespace Marketplace.Admin.API.Configurations
 {
+
     public static class ApplicationSetup
     {
         public static IServiceCollection AddApplicationSetup(this IServiceCollection services)
@@ -39,6 +42,9 @@ namespace Marketplace.Admin.API.Configurations
             NewId.SetProcessIdProvider(new CurrentProcessIdProvider());
             ApplyAllMappingConfigFromAssembly();
             TypeAdapterConfig.GlobalSettings.Compiler = exp => exp.CompileFast();
+
+            services.AddScoped<IPasswordUtils, PasswordUtils>();
+            services.AddScoped<IJwtUtils, JwtUtils>();
 
             services.AddScoped<IGetAdminAccountsQueryHandler, GetAdminAccountsQueryHandler>();
             services.AddScoped<ICreateAdminAccountCommandHandler, CreateAdminAccountCommandHandler>();
@@ -59,6 +65,8 @@ namespace Marketplace.Admin.API.Configurations
             services.AddScoped<ICreateLogisticsStaffAccountCommandHandler, CreateLogisticsStaffAccountCommandHandler>();
             services.AddScoped<IBlockLogisticsStaffAccountCommandHandler, BlockLogisticsStaffAccountCommandHandler>();
             services.AddScoped<IUnblockLogisticsStaffAccountCommandHandler, UnblockLogisticsStaffAccountCommandHandler>();
+
+            services.AddScoped<ISellerLoginCommandHandler, SellerLoginCommandHandler>();
 
             return services;
         }

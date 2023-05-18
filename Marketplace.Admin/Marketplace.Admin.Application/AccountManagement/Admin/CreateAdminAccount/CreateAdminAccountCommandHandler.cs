@@ -1,4 +1,5 @@
 ﻿using Mapster;
+using Marketplace.Admin.Application.Auth;
 using Marketplace.Admin.Application.Dtos;
 using Marketplace.Admin.Domain.Constants;
 using Marketplace.Admin.Domain.Entities;
@@ -9,9 +10,11 @@ namespace Marketplace.Admin.Application.AccountManagement.Admin.CreateAdminAccou
     public class CreateAdminAccountCommandHandler : ICreateAdminAccountCommandHandler
     {
         private readonly IAdminRepository _adminRepository;
-        public CreateAdminAccountCommandHandler(IAdminRepository adminRepository)
+        private readonly IPasswordUtils _passwordUtil;
+        public CreateAdminAccountCommandHandler(IAdminRepository adminRepository, IPasswordUtils passwordUtil)
         {
             _adminRepository = adminRepository;
+            _passwordUtil = passwordUtil;
         }
 
         public async Task<ResponseBaseDto> Handle(CreateAdminAccountCommand request)
@@ -22,6 +25,7 @@ namespace Marketplace.Admin.Application.AccountManagement.Admin.CreateAdminAccou
             }
 
             var newAdminUser = request.Adapt<AdminUser>();
+            newAdminUser.Password = _passwordUtil.GenerateHash(request.Password);
             newAdminUser.Status = Status.Active;
             newAdminUser.CreatedDate = DateTime.Now;
             newAdminUser.CreatedBy = "Admin";
