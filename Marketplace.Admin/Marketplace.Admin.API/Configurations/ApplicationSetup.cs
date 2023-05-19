@@ -1,29 +1,33 @@
 ﻿using FastExpressionCompiler;
 using FluentValidation;
 using Mapster;
-using Marketplace.Admin.Application.AccountManagement.Admin.BlockAdminAccount;
-using Marketplace.Admin.Application.AccountManagement.Admin.CreateAdminAccount;
-using Marketplace.Admin.Application.AccountManagement.Admin.GetAdminAccounts;
-using Marketplace.Admin.Application.AccountManagement.Admin.UnblockAdminAccount;
-using Marketplace.Admin.Application.AccountManagement.Buyer.BlockBuyerAccount;
-using Marketplace.Admin.Application.AccountManagement.Buyer.CreateBuyerAccount;
-using Marketplace.Admin.Application.AccountManagement.Buyer.GetBuyerAccounts;
-using Marketplace.Admin.Application.AccountManagement.Buyer.UnblockBuyerAccount;
-using Marketplace.Admin.Application.AccountManagement.LogisticsStaff.BlockLogisticsStaffAccount;
-using Marketplace.Admin.Application.AccountManagement.LogisticsStaff.CreateLogisticsStaffAccount;
-using Marketplace.Admin.Application.AccountManagement.LogisticsStaff.GetLogisticsStaffAccounts;
-using Marketplace.Admin.Application.AccountManagement.LogisticsStaff.UnblockLogisticsStaffAccount;
-using Marketplace.Admin.Application.AccountManagement.Seller.BlockSellerAccount;
-using Marketplace.Admin.Application.AccountManagement.Seller.CreateSellerAccount;
-using Marketplace.Admin.Application.AccountManagement.Seller.GetSellerAccounts;
-using Marketplace.Admin.Application.AccountManagement.Seller.UnblockSellerAccount;
-using Marketplace.Admin.Application.Auth;
-using Marketplace.Admin.Application.Auth.Admin;
-using Marketplace.Admin.Application.Auth.Buyer;
-using Marketplace.Admin.Application.Auth.LogisticsStaff;
-using Marketplace.Admin.Application.Auth.Seller;
 using Marketplace.Admin.Application.Behaviors;
 using Marketplace.Admin.Application.Common;
+using Marketplace.Admin.Application.Features.AccountManagement.Admin.BlockAdminAccount;
+using Marketplace.Admin.Application.Features.AccountManagement.Admin.CreateAdminAccount;
+using Marketplace.Admin.Application.Features.AccountManagement.Admin.GetAdminAccounts;
+using Marketplace.Admin.Application.Features.AccountManagement.Admin.UnblockAdminAccount;
+using Marketplace.Admin.Application.Features.AccountManagement.Buyer.BlockBuyerAccount;
+using Marketplace.Admin.Application.Features.AccountManagement.Buyer.CreateBuyerAccount;
+using Marketplace.Admin.Application.Features.AccountManagement.Buyer.GetBuyerAccounts;
+using Marketplace.Admin.Application.Features.AccountManagement.Buyer.UnblockBuyerAccount;
+using Marketplace.Admin.Application.Features.AccountManagement.LogisticsStaff.BlockLogisticsStaffAccount;
+using Marketplace.Admin.Application.Features.AccountManagement.LogisticsStaff.CreateLogisticsStaffAccount;
+using Marketplace.Admin.Application.Features.AccountManagement.LogisticsStaff.GetLogisticsStaffAccounts;
+using Marketplace.Admin.Application.Features.AccountManagement.LogisticsStaff.UnblockLogisticsStaffAccount;
+using Marketplace.Admin.Application.Features.AccountManagement.Seller.BlockSellerAccount;
+using Marketplace.Admin.Application.Features.AccountManagement.Seller.CreateSellerAccount;
+using Marketplace.Admin.Application.Features.AccountManagement.Seller.GetSellerAccounts;
+using Marketplace.Admin.Application.Features.AccountManagement.Seller.UnblockSellerAccount;
+using Marketplace.Admin.Application.Features.Auth;
+using Marketplace.Admin.Application.Features.Auth.Admin;
+using Marketplace.Admin.Application.Features.Auth.Buyer;
+using Marketplace.Admin.Application.Features.Auth.LogisticsStaff;
+using Marketplace.Admin.Application.Features.Auth.Seller;
+using Marketplace.Admin.Application.Features.Demographics.Buyer;
+using Marketplace.Admin.Application.Features.Demographics.Seller;
+using Marketplace.Admin.Application.Features.Sales.Common;
+using Marketplace.Admin.Application.Features.Sales.MarketplaceSummary;
 using Marketplace.Admin.Application.MappingConfig;
 using Marketplace.Admin.Infrastructure.Persistence.Database;
 using MassTransit;
@@ -73,6 +77,12 @@ namespace Marketplace.Admin.API.Configurations
             services.AddScoped<IBuyerLoginCommandHandler, BuyerLoginCommandHandler>();
             services.AddScoped<ISellerLoginCommandHandler, SellerLoginCommandHandler>();
             services.AddScoped<ILogisticsStaffLoginCommandHandler, LogisticsStaffLoginCommandHandler>();
+
+            services.AddScoped<IMarketplaceSummaryAggregator, MarketplaceSummaryAggregator>();
+            services.AddScoped<ISalesHistoryService, SalesHistoryService>();
+
+            services.AddScoped<IGetBuyerDemographicsQueryHandler, GetBuyerDemographicsQueryHandler>();
+            services.AddScoped<IGetSellerDemographicsQueryHandler, GetSellerDemographicsQueryHandler>();
 
             return services;
         }

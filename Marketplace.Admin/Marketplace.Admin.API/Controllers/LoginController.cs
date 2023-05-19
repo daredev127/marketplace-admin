@@ -1,8 +1,8 @@
-﻿using Marketplace.Admin.Application.Auth.Admin;
-using Marketplace.Admin.Application.Auth.Buyer;
-using Marketplace.Admin.Application.Auth.LogisticsStaff;
-using Marketplace.Admin.Application.Auth.Seller;
-using Marketplace.Admin.Application.Dtos;
+﻿using Marketplace.Admin.Application.Dtos;
+using Marketplace.Admin.Application.Features.Auth.Admin;
+using Marketplace.Admin.Application.Features.Auth.Buyer;
+using Marketplace.Admin.Application.Features.Auth.LogisticsStaff;
+using Marketplace.Admin.Application.Features.Auth.Seller;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 

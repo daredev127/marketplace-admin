@@ -1,8 +1,8 @@
-﻿using Marketplace.Admin.Application.AccountManagement.LogisticsStaff.BlockLogisticsStaffAccount;
-using Marketplace.Admin.Application.AccountManagement.LogisticsStaff.CreateLogisticsStaffAccount;
-using Marketplace.Admin.Application.AccountManagement.LogisticsStaff.GetLogisticsStaffAccounts;
-using Marketplace.Admin.Application.AccountManagement.LogisticsStaff.UnblockLogisticsStaffAccount;
-using Marketplace.Admin.Application.Dtos;
+﻿using Marketplace.Admin.Application.Dtos;
+using Marketplace.Admin.Application.Features.AccountManagement.LogisticsStaff.BlockLogisticsStaffAccount;
+using Marketplace.Admin.Application.Features.AccountManagement.LogisticsStaff.CreateLogisticsStaffAccount;
+using Marketplace.Admin.Application.Features.AccountManagement.LogisticsStaff.GetLogisticsStaffAccounts;
+using Marketplace.Admin.Application.Features.AccountManagement.LogisticsStaff.UnblockLogisticsStaffAccount;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -34,8 +34,8 @@ namespace Marketplace.Admin.API.Controllers
         public async Task<ActionResult<ResponseBaseDto>> GetLogisticsStaffAccounts([FromQuery] string search, string status)
         {
             var query = new GetLogisticsStaffAccountsQuery(search, status);
-            var LogisticsStaffUsers = await _getLogisticsStaffAccountsQueryHandler.Handle(query);
-            return Ok(LogisticsStaffUsers);
+            var logisticsStaff = await _getLogisticsStaffAccountsQueryHandler.Handle(query);
+            return Ok(logisticsStaff);
         }
 
         [HttpPost]

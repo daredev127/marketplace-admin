@@ -1,8 +1,8 @@
-﻿using Marketplace.Admin.Application.AccountManagement.Admin.BlockAdminAccount;
-using Marketplace.Admin.Application.AccountManagement.Admin.CreateAdminAccount;
-using Marketplace.Admin.Application.AccountManagement.Admin.GetAdminAccounts;
-using Marketplace.Admin.Application.AccountManagement.Admin.UnblockAdminAccount;
-using Marketplace.Admin.Application.Dtos;
+﻿using Marketplace.Admin.Application.Dtos;
+using Marketplace.Admin.Application.Features.AccountManagement.Admin.BlockAdminAccount;
+using Marketplace.Admin.Application.Features.AccountManagement.Admin.CreateAdminAccount;
+using Marketplace.Admin.Application.Features.AccountManagement.Admin.GetAdminAccounts;
+using Marketplace.Admin.Application.Features.AccountManagement.Admin.UnblockAdminAccount;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 

@@ -1,8 +1,8 @@
-﻿using Marketplace.Admin.Application.AccountManagement.Buyer.BlockBuyerAccount;
-using Marketplace.Admin.Application.AccountManagement.Buyer.CreateBuyerAccount;
-using Marketplace.Admin.Application.AccountManagement.Buyer.GetBuyerAccounts;
-using Marketplace.Admin.Application.AccountManagement.Buyer.UnblockBuyerAccount;
-using Marketplace.Admin.Application.Dtos;
+﻿using Marketplace.Admin.Application.Dtos;
+using Marketplace.Admin.Application.Features.AccountManagement.Buyer.BlockBuyerAccount;
+using Marketplace.Admin.Application.Features.AccountManagement.Buyer.CreateBuyerAccount;
+using Marketplace.Admin.Application.Features.AccountManagement.Buyer.GetBuyerAccounts;
+using Marketplace.Admin.Application.Features.AccountManagement.Buyer.UnblockBuyerAccount;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -34,8 +34,8 @@ namespace Marketplace.Admin.API.Controllers
         public async Task<ActionResult<ResponseBaseDto>> GetBuyerAccounts([FromQuery] string search, string status)
         {
             var query = new GetBuyerAccountsQuery(search, status);
-            var BuyerUsers = await _getBuyerAccountsQueryHandler.Handle(query);
-            return Ok(BuyerUsers);
+            var buyers = await _getBuyerAccountsQueryHandler.Handle(query);
+            return Ok(buyers);
         }
 
         [HttpPost]
