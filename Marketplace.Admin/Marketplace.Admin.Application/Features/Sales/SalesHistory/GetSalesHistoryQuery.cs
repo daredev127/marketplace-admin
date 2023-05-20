@@ -3,6 +3,10 @@
     public class GetSalesHistoryQuery
     {
         public string Period { get; set; }
-        public string Search { get; set; }
+
+        public GetSalesHistoryQuery(string period)
+        {
+            Period = period;
+        }
     }
 }

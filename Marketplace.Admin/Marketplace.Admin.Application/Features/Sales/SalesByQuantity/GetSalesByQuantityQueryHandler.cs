@@ -20,7 +20,7 @@ namespace Marketplace.Admin.Application.Features.Sales.SalesByQuantity
             {
                 ProductName = x.First().ProductName,
                 Quantity = x.Sum(y => y.Quantity)
-            });
+            }).OrderByDescending(x => x.Quantity);
 
             return new ResponseBaseDto
             {

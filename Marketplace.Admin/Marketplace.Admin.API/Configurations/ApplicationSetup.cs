@@ -26,8 +26,17 @@ using Marketplace.Admin.Application.Features.Auth.LogisticsStaff;
 using Marketplace.Admin.Application.Features.Auth.Seller;
 using Marketplace.Admin.Application.Features.Demographics.Buyer;
 using Marketplace.Admin.Application.Features.Demographics.Seller;
+using Marketplace.Admin.Application.Features.Price;
+using Marketplace.Admin.Application.Features.Rating.AddProductRating;
+using Marketplace.Admin.Application.Features.Rating.GetProductRating;
 using Marketplace.Admin.Application.Features.Sales.Common;
 using Marketplace.Admin.Application.Features.Sales.MarketplaceSummary;
+using Marketplace.Admin.Application.Features.Sales.ProductSalesDetails;
+using Marketplace.Admin.Application.Features.Sales.SalesByLocation;
+using Marketplace.Admin.Application.Features.Sales.SalesByQuantity;
+using Marketplace.Admin.Application.Features.Sales.SalesBySeller;
+using Marketplace.Admin.Application.Features.Sales.SalesHistory;
+using Marketplace.Admin.Application.Features.Sales.SalesSummary;
 using Marketplace.Admin.Application.MappingConfig;
 using Marketplace.Admin.Infrastructure.Persistence.Database;
 using MassTransit;
@@ -83,6 +92,18 @@ namespace Marketplace.Admin.API.Configurations
 
             services.AddScoped<IGetBuyerDemographicsQueryHandler, GetBuyerDemographicsQueryHandler>();
             services.AddScoped<IGetSellerDemographicsQueryHandler, GetSellerDemographicsQueryHandler>();
+
+            services.AddScoped<IGetProductSalesDetailsQueryHandler, GetProductSalesDetailsQueryHandler>();
+            services.AddScoped<IGetSalesByLocationQueryHandler, GetSalesByLocationQueryHandler>();
+            services.AddScoped<IGetSalesByQuantityQueryHandler, GetSalesByQuantityQueryHandler>();
+            services.AddScoped<IGetSalesBySellerQueryHandler, GetSalesBySellerQueryHandler>();
+            services.AddScoped<IGetSalesHistoryQueryHandler, GetSalesHistoryQueryHandler>();
+            services.AddScoped<IGetSalesSummaryQueryHandler, GetSalesSummaryQueryHandler>();
+
+            services.AddScoped<IGetPriceRangeQueryHandler, GetPriceRangeQueryHandler>();
+
+            services.AddScoped<IGetProductRatingQueryHandler, GetProductRatingQueryHandler>();
+            services.AddScoped<IAddProductRatingCommandHandler, AddProductRatingCommandHandler>();
 
             return services;
         }

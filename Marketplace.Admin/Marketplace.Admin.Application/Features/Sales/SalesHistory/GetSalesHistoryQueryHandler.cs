@@ -21,7 +21,7 @@ namespace Marketplace.Admin.Application.Features.Sales.SalesHistory
                 ProductName = x.ProductName,
                 Quantity = x.Quantity,
                 TimeStamp = x.Timestamp
-            });
+            }).OrderBy(x => x.TimeStamp);
 
             return new ResponseBaseDto
             {

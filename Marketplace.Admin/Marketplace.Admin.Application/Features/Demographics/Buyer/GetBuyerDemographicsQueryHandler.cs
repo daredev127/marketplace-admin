@@ -24,7 +24,7 @@ namespace Marketplace.Admin.Application.Features.Demographics.Buyer
                     Location = x.First().Address,
                     BuyerCount = x.Count(),
                     Percentage = Math.Round(100m * x.Count() / totalBuyers, 2)
-                });
+                }).OrderByDescending(x => x.BuyerCount);
 
             return new ResponseBaseDto
             {

@@ -21,7 +21,7 @@ namespace Marketplace.Admin.Application.Features.Sales.SalesByLocation
                 ProductName = x.First().ProductName,
                 Quantity = x.Sum(y => y.Quantity),
                 Location = x.First().BuyerLocation
-            });
+            }).OrderBy(x => x.Location).ThenByDescending(x => x.Quantity);
 
             return new ResponseBaseDto
             {

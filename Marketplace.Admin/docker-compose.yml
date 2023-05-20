@@ -9,3 +9,10 @@ services:
 
   marketplacedb:
     image: mcr.microsoft.com/mssql/server:2017-latest
+
+  dummysaleshistoryapi:
+    image: ${DOCKER_REGISTRY-}dummysaleshistoryapi
+    build:
+      context: .
+      dockerfile: DummySalesHistoryAPI/Dockerfile
+

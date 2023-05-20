@@ -4,5 +4,10 @@
     {
         public string Period { get; set; }
         public string Search { get; set; }
+        public GetSalesBySellerQuery(string period, string search)
+        {
+            Period = period;
+            Search = search;
+        }
     }
 }

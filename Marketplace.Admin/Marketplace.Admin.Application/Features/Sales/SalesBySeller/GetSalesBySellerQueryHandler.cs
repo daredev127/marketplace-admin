@@ -21,7 +21,7 @@ namespace Marketplace.Admin.Application.Features.Sales.SalesBySeller
             {
                 Name = x.First().SellerName,
                 Amount = x.Sum(y => y.Price * y.Quantity)
-            });
+            }).OrderByDescending(x => x.Amount);
 
             return new ResponseBaseDto
             {

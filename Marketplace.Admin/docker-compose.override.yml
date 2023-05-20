@@ -12,11 +12,21 @@ services:
       - "1433:1433"
 
   marketplace.admin.api:
+    container_name: marketplace.admin.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - "ConnectionStrings:DefaultConnection=Server=marketplacedb;Database=MarketplaceDb;User Id=sa;Password=Admin1234;TrustServerCertificate=True"
-      - "TokenConfiguration:Secret:yoursecret12345123120319230345345435"
+      - "TokenConfiguration:Secret=yoursecret12345123120319230345345435"
+      - "SalesHistoryConfig:Url=http://dummysaleshistoryapi"
     depends_on:
       - marketplacedb
+      - dummysaleshistoryapi
     ports:
       - "8001:80"
+
+  dummysaleshistoryapi:
+    container_name: dummysaleshistoryapi
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "8002:80"

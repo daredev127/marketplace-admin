@@ -22,7 +22,7 @@ namespace Marketplace.Admin.Application.Features.Sales.ProductSalesDetails
                     ProductName = x.ProductName,
                     Quantity = x.Quantity,
                     Location = x.BuyerLocation
-                });
+                }).OrderByDescending(x => x.Quantity); ;
 
             var simpleSalesHistory = salesHistory.Where(x => x.ProductName == query.ProductName)
                 .Select(x => new SimpleSalesHistoryDto
@@ -30,7 +30,7 @@ namespace Marketplace.Admin.Application.Features.Sales.ProductSalesDetails
                     ProductName = x.ProductName,
                     Quantity = x.Quantity,
                     TimeStamp = x.Timestamp
-                });
+                }).OrderBy(x => x.TimeStamp);
 
             return new ResponseBaseDto
             {

@@ -1,5 +1,6 @@
 ﻿using Marketplace.Admin.Application.Common;
 using Marketplace.Admin.Application.Dtos;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RestSharp;
@@ -9,10 +10,12 @@ namespace Marketplace.Admin.Application.Features.Sales.Common
     public class SalesHistoryService : ISalesHistoryService
     {
         private readonly AppSettings _appSettings;
+        private readonly ILogger _logger;
 
-        public SalesHistoryService(IOptions<AppSettings> appSettings)
+        public SalesHistoryService(IOptions<AppSettings> appSettings, ILogger<SalesHistoryService> logger)
         {
             _appSettings = appSettings.Value;
+            _logger = logger;
         }
 
         public async Task<IEnumerable<SalesHistoryDto>> GetSalesHistory()
@@ -32,6 +35,12 @@ namespace Marketplace.Admin.Application.Features.Sales.Common
             {
                 var salesHistory = JsonConvert.DeserializeObject<IEnumerable<SalesHistoryDto>>(response.Content);
                 return salesHistory;
+            }
+            else
+            {
+                _logger.LogInformation(response.ErrorException?.StackTrace);
+                _logger.LogInformation(response.ErrorMessage);
+                _logger.LogInformation(response.Content);
             }
 
             return new List<SalesHistoryDto>();

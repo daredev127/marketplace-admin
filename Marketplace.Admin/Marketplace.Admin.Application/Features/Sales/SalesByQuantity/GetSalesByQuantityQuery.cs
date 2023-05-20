@@ -3,6 +3,9 @@
     public class GetSalesByQuantityQuery
     {
         public string Period { get; set; }
-        public string Search { get; set; }
+        public GetSalesByQuantityQuery(string period)
+        {
+            Period = period;
+        }
     }
 }

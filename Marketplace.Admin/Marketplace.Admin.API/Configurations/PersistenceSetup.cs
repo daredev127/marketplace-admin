@@ -20,6 +20,7 @@ namespace Marketplace.Admin.API.Configurations
             services.AddScoped<IBuyerRepository, BuyerRepository>();
             services.AddScoped<ISellerRepository, SellerRepository>();
             services.AddScoped<ILogisticsStaffRepository, LogisticsStaffRepository>();
+            services.AddScoped<IProductRatingRepository, ProductRatingRepository>();
 
             return services;
         }

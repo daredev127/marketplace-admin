@@ -23,7 +23,7 @@ namespace Marketplace.Admin.Application.Features.Sales.SalesSummary
                 Price = x.Price,
                 Quantity = x.Quantity,
                 TotalSales = x.Price * x.Quantity
-            });
+            }).OrderBy(x => x.ProductName).ThenByDescending(x => x.TotalSales);
 
             return new ResponseBaseDto
             {

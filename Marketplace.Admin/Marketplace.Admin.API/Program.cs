@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<AppSettings>(builder.Configuration);
 
 builder.Services.AddControllers();
+builder.Services.AddCors();
 
 // Persistence
 builder.Services.AddPersistenceSetup(builder.Configuration);
@@ -26,6 +27,8 @@ if (builder.Environment.EnvironmentName != "Testing")
     builder.Host.UseLoggingSetup(builder.Configuration);
 }
 
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -39,6 +42,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors(x => x
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .SetIsOriginAllowed(origin => true)
+    .AllowCredentials());
 
 app.UseAuthorization();
 
