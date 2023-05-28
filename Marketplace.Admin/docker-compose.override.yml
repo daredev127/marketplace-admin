@@ -17,7 +17,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - "ConnectionStrings:DefaultConnection=Server=marketplacedb;Database=MarketplaceDb;User Id=sa;Password=Admin1234;TrustServerCertificate=True"
       - "TokenConfiguration:Secret=yoursecret12345123120319230345345435"
-      - "SalesHistoryConfig:Url=http://dummysaleshistoryapi"
+      - "SalesHistoryConfig:Url=http://170.64.162.196:8080"
     depends_on:
       - marketplacedb
       - dummysaleshistoryapi

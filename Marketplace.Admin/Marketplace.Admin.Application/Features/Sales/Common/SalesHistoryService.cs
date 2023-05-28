@@ -1,5 +1,6 @@
 ﻿using Marketplace.Admin.Application.Common;
 using Marketplace.Admin.Application.Dtos;
+using Marketplace.Admin.Application.Dtos.ThirdParty;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -24,7 +25,7 @@ namespace Marketplace.Admin.Application.Features.Sales.Common
 
             var request = new RestRequest
             {
-                Resource = "api/v1/saleshistory",
+                Resource = "api/orders",
                 Method = Method.Get
             };
 
@@ -33,7 +34,30 @@ namespace Marketplace.Admin.Application.Features.Sales.Common
             var response = await client.ExecuteAsync(request);
             if (response.IsSuccessful)
             {
-                var salesHistory = JsonConvert.DeserializeObject<IEnumerable<SalesHistoryDto>>(response.Content);
+                var salesHistory = new List<SalesHistoryDto>();
+                var orderData = JsonConvert.DeserializeObject<OrderDataDto>(response.Content);
+                if (orderData?.Data == null)
+                {
+                    return salesHistory;
+                }
+                foreach (var order in orderData.Data)
+                {
+                    if (order?.Order_Lines == null) continue;
+
+                    foreach (var orderItem in order.Order_Lines)
+                    {
+                        if (orderItem?.Product == null) continue;
+                        salesHistory.Add(new SalesHistoryDto
+                        {
+                            SellerName = order.Seller_Name,
+                            ProductName = orderItem.Product.Name,
+                            Price = orderItem.Product.Sale_Price / 100m,
+                            Quantity = orderItem.Quantity,
+                            BuyerLocation = order.Shipping_Address.State,
+                            Timestamp = order.Created_At
+                        });
+                    }
+                }
                 return salesHistory;
             }
             else

@@ -24,6 +24,7 @@ using Marketplace.Admin.Application.Features.Auth.Admin;
 using Marketplace.Admin.Application.Features.Auth.Buyer;
 using Marketplace.Admin.Application.Features.Auth.LogisticsStaff;
 using Marketplace.Admin.Application.Features.Auth.Seller;
+using Marketplace.Admin.Application.Features.Common;
 using Marketplace.Admin.Application.Features.Demographics.Buyer;
 using Marketplace.Admin.Application.Features.Demographics.Seller;
 using Marketplace.Admin.Application.Features.Price;
@@ -104,6 +105,8 @@ namespace Marketplace.Admin.API.Configurations
 
             services.AddScoped<IGetProductRatingQueryHandler, GetProductRatingQueryHandler>();
             services.AddScoped<IAddProductRatingCommandHandler, AddProductRatingCommandHandler>();
+
+            services.AddScoped<IBuyerService, BuyerService>();
 
             return services;
         }
